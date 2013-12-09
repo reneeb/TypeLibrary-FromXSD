@@ -14,7 +14,7 @@ use TypeLibrary::FromXSD::Element;
 
 our $VERSION = 0.01;
 
-has types       => (is => 'lwp');
+has types       => (is => 'rwp');
 has xsd         => (is => 'ro', required => 1);
 has output      => (is => 'ro');
 has namespace   => (is => 'ro');
@@ -27,7 +27,7 @@ sub run {
     my @typeNodes = $tree->getElementsByTagName('xs:simpleType');
 
     my $out_fh    = *STDOUT;
-    my $namespace = 'Library'; 
+    my $namespace = $self->namespace || 'Library'; 
 
     if ( $self->output ) {
         open $out_fh, '>', $self->output;
@@ -54,11 +54,11 @@ sub run {
     print $out_fh $self->_module_header( $namespace, $declare );
     
     if ( $types_used{date} || $types_used{dateTime} ) {
-        print $out_fh "use DateTime;\n\n";
+        print $out_fh "\nuse DateTime;\n\n";
     }
 
     for my $type ( @types ) {
-        print $out_fh $_->type,"\n\n";
+        print $out_fh $type->type,"\n\n";
     }
 
     if ( $types_used{date} ) {
@@ -116,7 +116,9 @@ sub _validate_date_sub {
     return 0 if ( $min  and ( $min < 0 or $min > 59 ) );
 
     return 1;
-}*;
+}
+
+*;
 }
 
 sub _validate_datetime_sub {
@@ -138,7 +140,9 @@ sub _validate_datetime_sub {
     return 0 if ( $min  and ( $min < 0 or $min > 59 ) );
 
     return 1;
-}*;
+}
+
+*;
 }
 
 1;

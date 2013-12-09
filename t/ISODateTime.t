@@ -15,13 +15,28 @@ my $xsd_element = qq!<?xml version="1.0" encoding="UTF-8"?>
 </xs:schema>!;
 
 my ($node)  = XML::LibXML->new->parse_string( $xsd_element )->getDocumentElement->getElementsByTagName( 'xs:simpleType' );
-my $element = TypeLibrary::FromXSD::Element->new( $node );
 
-my $check   = q*declare ISODateTime =>
+{
+    my $element = TypeLibrary::FromXSD::Element->new( $node );
+
+    my $check   = q*declare ISODateTime =>
     as Str,
     where {
         ($_ =~ m{\A-?[0-9]{4,}-[0-9]{2}-[0-9]{2}T[0-2][0-9]:[0-5][0-9]:[0-5][0-9](?:Z|[-+]?[0-2][0-9]:[0-5][0-9])?\z})
     };*;
-is $element->type, $check;
+    is $element->type, $check;
+}
+
+{
+    my $element = TypeLibrary::FromXSD::Element->new( $node, validate => { dateTime => 'validate_datetime' } );
+
+    my $check   = q*declare ISODateTime =>
+    as Str,
+    where {
+        ($_ =~ m{\A-?[0-9]{4,}-[0-9]{2}-[0-9]{2}T[0-2][0-9]:[0-5][0-9]:[0-5][0-9](?:Z|[-+]?[0-2][0-9]:[0-5][0-9])?\z}) && 
+        (validate_datetime($_))
+    };*;
+    is $element->type, $check;
+}
 
 done_testing(); 
