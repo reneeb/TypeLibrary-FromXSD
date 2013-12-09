@@ -32,7 +32,7 @@ sub _where {
     my ($self) = @_;
 
     return '' if !$self->restrictions;
-    return sprintf "\n    where {\n        %s\n    }", 
+    return sprintf ",\n    where {\n        %s\n    }", 
                join " && \n        ", map{ "($_)" }@{ $self->restrictions };
 }
 
@@ -48,7 +48,7 @@ sub BUILDARGS {
         my %args = @args;
         $extra_validations = delete $args{validate};
     }
-    
+
     my %real_args;
     if ( $node ) {
 
@@ -71,6 +71,9 @@ sub BUILDARGS {
 
         my @restrictions = $restrictions_node->childNodes;
         for my $restriction ( @restrictions ) {
+
+            my $node_name = $restriction->nodeName;
+
             if ( $node_name eq 'xs:enumeration' ) {
                 push @{ $real_args{enum} }, $restriction->findvalue('@value');
             }
@@ -108,8 +111,8 @@ sub BUILDARGS {
                 '$_ =~ m{\A-?[0-9]{4,}-[0-9]{2}-[0-9]{2}T[0-2][0-9]:[0-5][0-9]:[0-5][0-9](?:Z|[-+]?[0-2][0-9]:[0-5][0-9])?\z}';
         }
 
-        if ( $base =~ m{\Adate(Time)?\z} and $extra_validations and $extra_validations{$base} ) {
-            push @{ $real_args{restrictions} }, "$extra_validations{$base}($_)";
+        if ( $base =~ m{\Adate(Time)?\z} and $extra_validations and $extra_validations->{$base} ) {
+            push @{ $real_args{restrictions} }, $extra_validations->{$base} . '($_)';
         }
 
         $real_args{orig_base} = $base;

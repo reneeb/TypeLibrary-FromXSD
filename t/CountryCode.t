@@ -5,20 +5,25 @@ use warnings;
 
 use Test::More;
 use TypeLibrary::FromXSD::Element;
+use XML::LibXML;
 
-my $xsd_element = qq!<xs:simpleType name="CountryCode">
+my $xsd_element = qq!<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:sepade:xsd:pain.001.001.02" targetNamespace="urn:sepade:xsd:pain.001.001.02" elementFormDefault="qualified">
+<xs:simpleType name="CountryCode">
     <xs:restriction base="xs:string">
       <xs:pattern value="[A-Z]{2,2}"/>
     </xs:restriction>
-  </xs:simpleType>!;
+  </xs:simpleType>
+</xs:schema>!;
 
-my $element     = TypeLibrary::FromXSD::Element->new( $xsd_element );
+my ($node)  = XML::LibXML->new->parse_string( $xsd_element )->getDocumentElement->getElementsByTagName( 'xs:simpleType' );
+my $element = TypeLibrary::FromXSD::Element->new( $node );
 
 my $check   = q*declare CountryCode =>
     as Str,
     where {
-        (S_ =~ m![A-Z]{2,2}!)
-    }*;
+        ($_ =~ m![A-Z]{2,2}!)
+    };*;
 is $element->type, $check;
 
 done_testing(); 
