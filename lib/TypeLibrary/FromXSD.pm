@@ -1,5 +1,7 @@
 package TypeLibrary::FromXSD;
 
+# ABSTRACT: create a Type::Tiny library of simpleTypes in .xsd files.
+
 use strict;
 use warnings;
 
