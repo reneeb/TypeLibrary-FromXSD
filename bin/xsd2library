@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+# PODNAME: xsd2library
+
 use strict;
 use warnings;
 
@@ -30,3 +32,27 @@ $params{namespace} = $namespace if $namespace;
 
 Type::Library::FromXSD->new(\%params)->run;
 
+=head1 SYNOPSIS
+
+  $ xsd2library myfile.xsd
+  $ xsd2library --output /home/test myfile.xsd
+  $ xsd2library --output /home/test --namespace MyModule::Types myfile.xsd
+  $ xsd2library --output /home/test --namespace MyModule::Types --version_add 0.01 myfile.xsd
+
+=head1 OPTIONS
+
+=over 4
+
+=item * output
+
+Path were the module is stored
+
+=item * namespace
+
+Namespace for the library module.
+
+=item * version_add
+
+Diff that is added to the version of the module
+
+=back
