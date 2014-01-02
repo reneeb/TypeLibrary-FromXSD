@@ -12,7 +12,7 @@ use XML::LibXML;
 
 use TypeLibrary::FromXSD::Element;
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 has types       => (is => 'rwp');
 has xsd         => (is => 'ro', required => 1);
@@ -147,7 +147,7 @@ sub _validate_datetime_sub {
 
 1;
 
-=head 1 DESCRIPTION
+=head1 DESCRIPTION
 
 This module helps to create a library for types (using C<Type::Tiny>) based on a XML schema.
 It searches for I<simpleType>s in the I<.xsd> file and creates a type for it.
