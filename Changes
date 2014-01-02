@@ -7,6 +7,7 @@ Change history for TypeLibrary::FromXSD
      + use PodWeaver
      + fix Pod error
      + fix prereq list in dist.ini
+     + add documentation to script xsd2library
 
 0.01 2013-12-09T22:40:46
 
