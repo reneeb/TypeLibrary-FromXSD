@@ -12,7 +12,7 @@ use XML::LibXML;
 
 use TypeLibrary::FromXSD::Element;
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 has types       => (is => 'rwp');
 has xsd         => (is => 'ro', required => 1);

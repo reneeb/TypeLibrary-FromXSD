@@ -4,7 +4,7 @@ package TypeLibrary::FromXSD::Element;
 
 use Moo;
 
-our $VERSION = 0.01;
+our $VERSION = 0.03;
 
 has name         => (is => 'ro', required => 1);
 has base         => (is => 'ro', required => 1);
