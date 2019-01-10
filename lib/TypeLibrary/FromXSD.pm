@@ -31,7 +31,7 @@ sub run {
 
     if ( $self->output ) {
         open $out_fh, '>', $self->output;
-        $namespace = $self->namespace || basename $self->output;
+        $namespace = basename $self->output if !$self->namespace;
         $namespace =~ s/\.pm\z//;
     }
 

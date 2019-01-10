@@ -144,6 +144,8 @@ sub BUILDARGS {
 
 =head1 METHODS
 
+=head2 BUILDARGS
+
 =head2 new
 
 Create a I<Element> object, in contrast to other classes, this constructor
