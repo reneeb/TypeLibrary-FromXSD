@@ -8,7 +8,7 @@ TypeLibrary::FromXSD - create a Type::Tiny library of simpleTypes in .xsd files.
 
 # VERSION
 
-version 0.03
+version 0.04
 
 # SYNOPSIS
 
@@ -25,6 +25,14 @@ version 0.03
 
 This module helps to create a library for types (using `Type::Tiny`) based on a XML schema.
 It searches for _simpleType_s in the _.xsd_ file and creates a type for it.
+
+# ATTRIBUTES
+
+- types
+- xsd
+- output
+- namespace
+- version\_add
 
 # METHODS
 

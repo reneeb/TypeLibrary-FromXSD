@@ -12,7 +12,7 @@ use XML::LibXML;
 
 use TypeLibrary::FromXSD::Element;
 
-our $VERSION = 0.03;
+our $VERSION = '0.04';
 
 has types       => (is => 'rwp');
 has xsd         => (is => 'ro', required => 1);
@@ -162,6 +162,22 @@ It searches for I<simpleType>s in the I<.xsd> file and creates a type for it.
   );
   
   $generator->run;
+
+=head1 ATTRIBUTES
+
+=over 4
+
+=item * types
+
+=item * xsd
+
+=item * output
+
+=item * namespace
+
+=item * version_add
+
+=back
 
 =head1 METHODS
 

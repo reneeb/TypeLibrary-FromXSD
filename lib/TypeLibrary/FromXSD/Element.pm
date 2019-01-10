@@ -4,7 +4,7 @@ package TypeLibrary::FromXSD::Element;
 
 use Moo;
 
-our $VERSION = 0.03;
+our $VERSION = '0.04';
 
 has name         => (is => 'ro', required => 1);
 has base         => (is => 'ro', required => 1);
@@ -141,6 +141,32 @@ sub BUILDARGS {
   
       print $element->type;
   }
+
+=head1 ATTRIBUTES
+
+=over 4
+
+=item * name
+
+=item * base
+
+=item * orig_base
+
+=item * enum
+
+=item * restrictions
+
+=back
+
+for two attributes check functions exist:
+
+=over 4
+
+=item * has_enum
+
+=item * has_restrictions
+
+=back
 
 =head1 METHODS
 
