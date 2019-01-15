@@ -8,7 +8,7 @@ TypeLibrary::FromXSD - create a Type::Tiny library of simpleTypes in .xsd files.
 
 # VERSION
 
-version 0.04
+version 0.05
 
 # SYNOPSIS
 
